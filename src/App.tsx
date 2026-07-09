@@ -26,7 +26,7 @@ export const App: React.FC = () => {
   const [sortType, setSortType] = useState<SortType>(SortType.NONE);
   const [isReversed, setIsReversed] = useState(false);
 
-  const getGoods = () => {
+  const getVisibleGoods = () => {
     const result = [...goodsFromServer];
 
     if (sortType === SortType.ALPHABET) {
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
     return result;
   };
 
-  const visibleGoods = getGoods();
+  const visibleGoods = getVisibleGoods();
   const isResetButtonVisible = sortType !== SortType.NONE || isReversed;
   const reset = () => {
     setSortType(SortType.NONE);
@@ -89,13 +89,11 @@ export const App: React.FC = () => {
         )}
       </div>
       <ul>
-        <ul>
-          {visibleGoods.map(good => (
-            <li key={good} data-cy="Good">
-              {good}
-            </li>
-          ))}
-        </ul>
+        {visibleGoods.map(good => (
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
+        ))}
       </ul>
     </div>
   );
